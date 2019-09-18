@@ -1,6 +1,7 @@
 import { takeEvery, put } from "redux-saga/effects";
 import { GET_INIT_ITEMS } from "./actionTypes";
-import { getInitItemsAction } from "./createActions";
+import { getInitDataAction } from "./createActions";
+import API from "../utils/API.js";
 
 function* getInitItemsData() {
   try {
