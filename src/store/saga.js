@@ -5,13 +5,8 @@ import API from "../utils/API.js";
 
 function* getInitItemsData() {
   try {
-    const res = yield fetch(
-      "https://my-json-server.typicode.com/maruw4k/fake-rest-server/todos"
-    )
-      .then(response => response.json())
-      .then(json => console.log(json));
-
-    const action = getInitItemsAction(res.data);
+    const res = yield API.fetchTodos();
+    const action = getInitDataAction(res.data);
     yield put(action);
   } catch (error) {
     console.log("error: ", error);
