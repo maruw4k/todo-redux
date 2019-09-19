@@ -53,7 +53,7 @@ const TodoAdd = props => {
   } = props;
 
   const handleAddToDo = () => {
-    if (list.length > 10) {
+    if (list.length >= 10) {
       const infoText = "Maksymalna ilość zadań to 10";
       infoTextChange(infoText);
     } else if (inputValue === undefined || inputValue === "") {
