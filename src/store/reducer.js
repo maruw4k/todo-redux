@@ -27,6 +27,10 @@ export default (state = defaultState, action) => {
     }
     case ADD_ITEM: {
       const newState = JSON.parse(JSON.stringify(state));
+
+      //@todo temporary, prevent duplicate id, because fake api server doesn't save new todos
+      action.value.id = state.list.length + 1;
+
       newState.list = [...state.list, action.value];
       newState.inputValue = "";
       return newState;
