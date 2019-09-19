@@ -4,12 +4,11 @@ export const theme = {
       main: "Roboto, sans-serif"
     },
     size: {
+      xxs: "1.2rem",
       xs: "1.4rem",
-      s: "2.6rem",
-      m: "4.2rem",
-      l: "5rem",
-      xl: "7.2rem",
-      xxl: "9.4rem"
+      s: "1.6rem",
+      m: "1.8rem",
+      l: "2rem",
     },
     weight: {
       light: "300",
@@ -18,6 +17,12 @@ export const theme = {
     }
   },
   color: {
+    lightGray: '#dcdcdc',
+    gray: '#b5b5b5',
+    white: '#FFFFFF',
+    lightRed: '#f3e4e0',
+    red: '#ff0000',
+    green: '#008000'
   },
   mq: {
     phone: `@media (min-width: 576px)`,
