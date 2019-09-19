@@ -5,10 +5,11 @@ import { toggleItemAction, deleteItemAction } from "../../store/createActions";
 import { theme } from "../../assets/styles/theme";
 
 const ListItem = styled.li`
+  font-size: ${theme.font.size.xs};
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 1rem 0 1rem 2rem;
-  font-size: ${theme.font.size.xs};
   border-bottom: 1px solid #e6ebed;
   cursor: pointer;
 
@@ -26,6 +27,9 @@ const ActionBtn = styled.button`
   border: 2px solid ${theme.color.white};
   cursor: pointer;
   transition: background-color 300ms;
+  padding: 0;
+  width: 25px;
+  height: 25px;
 
   &:disabled {
     opacity: 0.4;
@@ -46,8 +50,9 @@ const DeleteBtn = styled(ActionBtn)`
   color: ${theme.color.red};
 `;
 
-const ToggleBtn = styled(ActionBtn)`
-  color: ${theme.color.green};
+const ToggleBtn = styled(ActionBtn)`  
+    color: ${props =>
+    props.completed ? `${theme.color.black}` : `${theme.color.green}`};
 `;
 
 const TodoItem = props => {
@@ -69,7 +74,10 @@ const TodoItem = props => {
         </span>
 
         <div>
-          <ToggleBtn onClick={() => toggleToDo(item.id, item.completed)}>
+          <ToggleBtn
+            completed={item.completed}
+            onClick={() => toggleToDo(item.id, item.completed)}
+          >
             &#10004;
           </ToggleBtn>
 

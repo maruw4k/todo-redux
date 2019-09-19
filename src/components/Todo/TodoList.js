@@ -55,15 +55,17 @@ const List = styled.ul`
   border-top: 1px solid ${theme.color.lightGray};
   list-style-type: none;
 
-  &::before {
-    content: "";
-    width: 3px;
-    z-index: 2;
-    border: 1px solid ${theme.color.lightRed};
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 60px;
+  ${theme.mq.tablet} {
+    &::before {
+      content: "";
+      width: 3px;
+      z-index: 2;
+      border: 1px solid ${theme.color.lightRed};
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 60px;
+    }
   }
 `;
 
