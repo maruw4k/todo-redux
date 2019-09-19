@@ -1,4 +1,9 @@
-import { ADD_ITEM, GET_INIT_DATA, INPUT_VALUE_CHANGE } from "./actionTypes";
+import {
+  ADD_ITEM,
+  GET_INIT_DATA,
+  INPUT_VALUE_CHANGE,
+  TOGGLE_ITEM
+} from "./actionTypes";
 
 const defaultState = {
   inputValue: "",
@@ -24,6 +29,14 @@ export default (state = defaultState, action) => {
       newState.list = [...state.list, action.value];
       newState.inputValue = "";
       return newState;
+    }
+    case TOGGLE_ITEM: {
+      return {
+        ...state,
+        list: state.list.map(todo =>
+            todo.id === action.id ? {...todo, completed: !todo.completed} : todo
+        )
+      }
     }
     default:
       return state;

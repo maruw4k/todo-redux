@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import {
   getInitItemsAction,
   getInputValueChangeAction,
-  addItemAction
+  addItemAction,
+  toggleItemAction
 } from "../store/createActions";
 
 const TodoList = props => {
@@ -12,7 +13,8 @@ const TodoList = props => {
     getInitItems,
     inputValueChange,
     list,
-    handleAddItem
+    handleAddItem,
+    handleToggleItem
   } = props;
 
   const handleAddToDo = () => {
@@ -23,6 +25,11 @@ const TodoList = props => {
     } else {
       handleAddItem(inputValue);
     }
+  };
+
+  const toggleToDo = (id, completed) => {
+    console.log(id);
+    handleToggleItem(id, completed);
   };
 
   useEffect(() => {
@@ -42,7 +49,18 @@ const TodoList = props => {
       <button onClick={handleAddToDo}>Dodaj zadanie</button>
 
       <div>
-        <ul>{list && list.map(item => <li key={item.id}>{item.title}</li>)}</ul>
+        <ul>
+          {list &&
+            list.map(item => (
+              <li
+                style={{ textDecorationLine: item.completed && "line-through" }}
+                onClick={() => toggleToDo(item.id, item.completed)}
+                key={item.id}
+              >
+                {item.title}
+              </li>
+            ))}
+        </ul>
       </div>
     </>
   );
@@ -56,7 +74,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     inputValueChange(e) {
       const action = getInputValueChangeAction(e.target.value);
@@ -68,6 +86,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleAddItem() {
       const action = addItemAction();
+      dispatch(action);
+    },
+    handleToggleItem(id, completed) {
+      const action = toggleItemAction(id, completed);
       dispatch(action);
     }
   };
