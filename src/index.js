@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import "./index.css";
-import TodoList from "./components/TodoList";
+import TodoList from "./components/Todo/TodoList";
 import store from "./store";
 
 const App = (
