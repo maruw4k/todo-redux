@@ -1,34 +1,27 @@
 import axios from "axios";
 
 //This is FAKE API, changes aren't persisted
+const apiUrl = "https://my-json-server.typicode.com/maruw4k/fake-rest-server/todos";
 
 const fetchTodos = () => {
-  return axios.get(
-    "https://my-json-server.typicode.com/maruw4k/fake-rest-server/todos"
-  );
+    return axios.get(apiUrl);
 };
 
 const addNewTodo = title => {
-  return axios.post(
-    "https://my-json-server.typicode.com/maruw4k/fake-rest-server/todos",
-    {
-      title: title,
-      completed: false
-    }
-  );
+    return axios.post(apiUrl, {
+        title: title,
+        completed: false
+    });
 };
 
 const toggleTodo = (id, completed) => {
-  return axios.patch(
-    `https://my-json-server.typicode.com/maruw4k/fake-rest-server/todos/${id}`,
-    {
-      completed: completed
-    }
-  );
+    return axios.patch(`${apiUrl}/${id}`, {
+        completed: completed
+    });
 };
 
 export default {
-  fetchTodos: fetchTodos,
-  addNewTodo: addNewTodo,
-  toggleTodo: toggleTodo
+    fetchTodos: fetchTodos,
+    addNewTodo: addNewTodo,
+    toggleTodo: toggleTodo
 };
