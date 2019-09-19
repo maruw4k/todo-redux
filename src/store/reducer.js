@@ -3,38 +3,15 @@ import {
   DELETE_ITEM,
   GET_INIT_DATA,
   INPUT_VALUE_CHANGE,
-  TOGGLE_ITEM
+  TOGGLE_ITEM,
+  INFO_TEXT_CHANGE
 } from "./actionTypes";
 
 const defaultState = {
   inputValue: "",
-  list: [
-    {
-      "userId": 1,
-      "id": 1,
-      "title": "napisać kod",
-      "completed": true
-    },
-    {
-      "userId": 1,
-      "id": 2,
-      "title": "zrobić deploy",
-      "completed": true
-    },
-    {
-      "userId": 1,
-      "id": 3,
-      "title": "wysłać rozwiązanie",
-      "completed": true
-    },
-    {
-      "userId": 1,
-      "id": 4,
-      "title": "odczytać odpowiedź",
-      "completed": false
-    }
-  ],
-  loaded: false
+  list: [],
+  loaded: false,
+  infoText: ""
 };
 
 export default (state = defaultState, action) => {
@@ -42,7 +19,8 @@ export default (state = defaultState, action) => {
     case GET_INIT_DATA: {
       return {
         loaded: true,
-        list: action.value
+        list: action.value,
+        infoText: ""
       };
     }
     case INPUT_VALUE_CHANGE: {
@@ -72,6 +50,12 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         list: state.list.filter(todo => todo.id !== action.id)
+      };
+    }
+    case INFO_TEXT_CHANGE: {
+      return {
+        ...state,
+        infoText: action.value
       };
     }
     default:

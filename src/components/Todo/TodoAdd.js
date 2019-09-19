@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   getInputValueChangeAction,
-  addItemAction
+  addItemAction,
+  getInfoTextAction
 } from "../../store/createActions";
 import styled from "styled-components";
 import { theme } from "../../assets/styles/theme";
@@ -19,7 +20,7 @@ const InputText = styled.input`
 const InfoText = styled.p`
   color: ${theme.color.gray};
   position: absolute;
-    padding-left: 2rem;
+  padding-left: 3rem;
   bottom: 5px;
   font-size: ${theme.font.size.xxs};
   font-weight: ${theme.font.weight.light};
@@ -42,15 +43,28 @@ const AddBtn = styled.button`
 `;
 
 const TodoAdd = props => {
-  const { inputValue, inputValueChange, list, handleAddItem } = props;
+  const {
+    inputValue,
+    inputValueChange,
+    list,
+    infoText,
+    handleAddItem,
+    infoTextChange
+  } = props;
 
   const handleAddToDo = () => {
     if (list.length > 10) {
-      console.log("Maksymalna ilość zadań to 10");
-    } else if (inputValue === "" || inputValue.length < 3) {
-      console.log("Zbyt krótki tytuł");
+      const infoText = "Maksymalna ilość zadań to 10";
+      infoTextChange(infoText);
+    } else if (inputValue === undefined || inputValue === "") {
+      const infoText = "Proszę wprowadzić zadanie";
+      infoTextChange(infoText);
+    } else if (inputValue.length < 3) {
+      const infoText = "Wpisany tekst jest zbyt krótki";
+      infoTextChange(infoText);
     } else {
       handleAddItem(inputValue);
+      infoTextChange(false);
     }
   };
 
@@ -74,7 +88,8 @@ const mapStateToProps = state => {
   return {
     inputValue: state.inputValue,
     list: state.list,
-    loaded: state.loaded
+    loaded: state.loaded,
+    infoText: state.infoText
   };
 };
 
@@ -86,6 +101,10 @@ const mapDispatchToProps = dispatch => {
     },
     handleAddItem() {
       const action = addItemAction();
+      dispatch(action);
+    },
+    infoTextChange(infoText) {
+      const action = getInfoTextAction(infoText);
       dispatch(action);
     }
   };

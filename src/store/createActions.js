@@ -5,6 +5,7 @@ import {
   ADD_ITEM_START,
   TOGGLE_ITEM_START,
   DELETE_ITEM_START,
+  INFO_TEXT_CHANGE
 } from "../store/actionTypes";
 
 const getInputValueChangeAction = value => ({
@@ -35,11 +36,17 @@ const deleteItemAction = id => ({
   type: DELETE_ITEM_START,
   id
 });
+
+const getInfoTextAction = value => ({
+  type: INFO_TEXT_CHANGE,
+  value
+});
 export {
   getInitItemsAction,
   getInitDataAction,
   getInputValueChangeAction,
   addItemAction,
   toggleItemAction,
-  deleteItemAction
+  deleteItemAction,
+  getInfoTextAction
 };
