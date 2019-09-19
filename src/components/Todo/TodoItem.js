@@ -27,6 +27,15 @@ const ActionBtn = styled.button`
   cursor: pointer;
   transition: background-color 300ms;
 
+  &:disabled {
+    opacity: 0.4;
+
+    &:hover {
+      border: 2px solid ${theme.color.white};
+      background: none;
+    }
+  }
+
   &:hover {
     border: 2px solid ${theme.color.lightGray};
     background: none;
@@ -34,7 +43,7 @@ const ActionBtn = styled.button`
 `;
 
 const DeleteBtn = styled(ActionBtn)`
-  color:  ${theme.color.red};
+  color: ${theme.color.red};
 `;
 
 const ToggleBtn = styled(ActionBtn)`
@@ -63,7 +72,13 @@ const TodoItem = props => {
           <ToggleBtn onClick={() => toggleToDo(item.id, item.completed)}>
             &#10004;
           </ToggleBtn>
-          <DeleteBtn onClick={() => deleteToDo(item.id)}>&#10006;</DeleteBtn>
+
+          <DeleteBtn
+            disabled={!item.completed}
+            onClick={() => deleteToDo(item.id)}
+          >
+            &#10006;
+          </DeleteBtn>
         </div>
       </ListItem>
     </>
