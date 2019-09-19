@@ -8,7 +8,32 @@ import {
 
 const defaultState = {
   inputValue: "",
-  list: [],
+  list: [
+    {
+      "userId": 1,
+      "id": 1,
+      "title": "napisać kod",
+      "completed": true
+    },
+    {
+      "userId": 1,
+      "id": 2,
+      "title": "zrobić deploy",
+      "completed": true
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "title": "wysłać rozwiązanie",
+      "completed": true
+    },
+    {
+      "userId": 1,
+      "id": 4,
+      "title": "odczytać odpowiedź",
+      "completed": false
+    }
+  ],
   loaded: false
 };
 
