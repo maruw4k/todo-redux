@@ -1,31 +1,48 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getInitItemsAction } from "../store/createActions";
+import {
+  getInitItemsAction,
+  getInputValueChangeAction,
+  addItemAction
+} from "../store/createActions";
 
 const TodoList = props => {
-  const handleAddToDo = event => {
-    event.preventDefault();
-    console.log("handleAddToDo");
+  const {
+    inputValue,
+    getInitItems,
+    inputValueChange,
+    list,
+    handleAddItem
+  } = props;
 
-    console.log(props);
+  const handleAddToDo = () => {
+    if (list.length > 10) {
+      console.log("Maksymalna ilość zadań to 10");
+    } else if (inputValue === "" || inputValue.length < 3) {
+      console.log("Zbyt krótki tytuł");
+    } else {
+      handleAddItem(inputValue);
+    }
   };
 
   useEffect(() => {
-    props.getInitItems();
-    console.log(props);
+    console.log("useEffect()");
+    getInitItems();
   }, []);
 
   return (
     <>
-      <input placeholder="Wpisz zadanie" type="text" />
+      <input
+        placeholder="Wpisz zadanie"
+        type="text"
+        value={inputValue || ""}
+        onChange={inputValueChange}
+      />
 
       <button onClick={handleAddToDo}>Dodaj zadanie</button>
 
       <div>
-        <ul>
-          {props.list &&
-            props.list.map(item => <li key={item.id}>{item.title}</li>)}
-        </ul>
+        <ul>{list && list.map(item => <li key={item.id}>{item.title}</li>)}</ul>
       </div>
     </>
   );
@@ -33,15 +50,24 @@ const TodoList = props => {
 
 const mapStateToProps = state => {
   return {
+    inputValue: state.inputValue,
     list: state.list,
     loaded: state.loaded
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
+    inputValueChange(e) {
+      const action = getInputValueChangeAction(e.target.value);
+      dispatch(action);
+    },
     getInitItems() {
       const action = getInitItemsAction();
+      dispatch(action);
+    },
+    handleAddItem() {
+      const action = addItemAction();
       dispatch(action);
     }
   };
