@@ -2,9 +2,9 @@ import {
   GET_INIT_ITEMS,
   GET_INIT_DATA,
   INPUT_VALUE_CHANGE,
-  DELETE_ITEM,
   ADD_ITEM_START,
-  TOGGLE_ITEM_START
+  TOGGLE_ITEM_START,
+  DELETE_ITEM_START,
 } from "../store/actionTypes";
 
 const getInputValueChangeAction = value => ({
@@ -31,9 +31,9 @@ const toggleItemAction = (id, completed) => ({
   completed
 });
 
-const getDeleteItemAction = index => ({
-  type: DELETE_ITEM,
-  index
+const deleteItemAction = id => ({
+  type: DELETE_ITEM_START,
+  id
 });
 export {
   getInitItemsAction,
@@ -41,5 +41,5 @@ export {
   getInputValueChangeAction,
   addItemAction,
   toggleItemAction,
-  getDeleteItemAction
+  deleteItemAction
 };

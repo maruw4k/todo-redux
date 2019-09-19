@@ -1,5 +1,6 @@
 import {
   ADD_ITEM,
+  DELETE_ITEM,
   GET_INIT_DATA,
   INPUT_VALUE_CHANGE,
   TOGGLE_ITEM
@@ -34,9 +35,15 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         list: state.list.map(todo =>
-            todo.id === action.id ? {...todo, completed: !todo.completed} : todo
+          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
         )
-      }
+      };
+    }
+    case DELETE_ITEM: {
+      return {
+        ...state,
+        list: state.list.filter(todo => todo.id !== action.id)
+      };
     }
     default:
       return state;

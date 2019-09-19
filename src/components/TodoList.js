@@ -4,7 +4,8 @@ import {
   getInitItemsAction,
   getInputValueChangeAction,
   addItemAction,
-  toggleItemAction
+  toggleItemAction,
+  deleteItemAction
 } from "../store/createActions";
 
 const TodoList = props => {
@@ -14,7 +15,8 @@ const TodoList = props => {
     inputValueChange,
     list,
     handleAddItem,
-    handleToggleItem
+    handleToggleItem,
+    handleDeleteItem
   } = props;
 
   const handleAddToDo = () => {
@@ -30,6 +32,11 @@ const TodoList = props => {
   const toggleToDo = (id, completed) => {
     console.log(id);
     handleToggleItem(id, completed);
+  };
+
+  const deleteToDo = id => {
+    console.log(id, "deleteToDo");
+    handleDeleteItem(id);
   };
 
   useEffect(() => {
@@ -54,10 +61,13 @@ const TodoList = props => {
             list.map(item => (
               <li
                 style={{ textDecorationLine: item.completed && "line-through" }}
-                onClick={() => toggleToDo(item.id, item.completed)}
                 key={item.id}
               >
-                {item.title}
+                <span onClick={() => toggleToDo(item.id, item.completed)}>
+                  {item.title}
+                </span>
+
+                <button onClick={() => deleteToDo(item.id)}>usuń</button>
               </li>
             ))}
         </ul>
@@ -90,6 +100,10 @@ const mapDispatchToProps = dispatch => {
     },
     handleToggleItem(id, completed) {
       const action = toggleItemAction(id, completed);
+      dispatch(action);
+    },
+    handleDeleteItem(id) {
+      const action = deleteItemAction(id);
       dispatch(action);
     }
   };

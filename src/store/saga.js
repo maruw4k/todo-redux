@@ -4,7 +4,9 @@ import {
   ADD_ITEM,
   ADD_ITEM_START,
   TOGGLE_ITEM,
-  TOGGLE_ITEM_START
+  TOGGLE_ITEM_START,
+  DELETE_ITEM_START,
+  DELETE_ITEM
 } from "./actionTypes";
 import { getInitDataAction } from "./createActions";
 import { select } from "@redux-saga/core/effects";
@@ -46,10 +48,23 @@ function* toggleItemsData(action) {
   }
 }
 
+function* deleteItemData(action) {
+  try {
+    //ugly, because is used faked API (only 4 constant post on server) and locally changes aren't persisted
+    if (action.id < 5) {
+      yield API.deleteTodo(action.id);
+    }
+    yield put({ type: DELETE_ITEM, id: action.id });
+  } catch (error) {
+    console.log("error: ", error);
+  }
+}
+
 function* mySaga() {
   yield takeEvery(GET_INIT_ITEMS, getInitItemsData);
   yield takeEvery(ADD_ITEM_START, addItemsData);
   yield takeEvery(TOGGLE_ITEM_START, toggleItemsData);
+  yield takeEvery(DELETE_ITEM_START, deleteItemData);
 }
 
 export default mySaga;
