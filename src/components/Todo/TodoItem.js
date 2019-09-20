@@ -59,34 +59,26 @@ const ToggleBtn = styled(ActionBtn)`
 `;
 
 const TodoItem = props => {
-  const { item, handleToggleItem, handleDeleteItem } = props;
-
-  const toggleToDo = (id, completed) => {
-    handleToggleItem(id, completed);
-  };
-
-  const deleteToDo = id => {
-    handleDeleteItem(id);
-  };
+  const { item, toggleItemAction, deleteItemAction } = props;
 
   return (
     <>
       <ListItem completed={item.completed} key={item.id}>
-        <span onClick={() => toggleToDo(item.id, item.completed)}>
+        <span onClick={() => toggleItemAction(item.id, item.completed)}>
           {item.title}
         </span>
 
         <div>
           <ToggleBtn
             completed={item.completed}
-            onClick={() => toggleToDo(item.id, item.completed)}
+            onClick={() => toggleItemAction(item.id, item.completed)}
           >
             &#10004;
           </ToggleBtn>
 
           <DeleteBtn
             disabled={!item.completed}
-            onClick={() => deleteToDo(item.id)}
+            onClick={() => deleteItemAction(item.id)}
           >
             &#10006;
           </DeleteBtn>
@@ -102,18 +94,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleToggleItem(id, completed) {
-      const action = toggleItemAction(id, completed);
-      dispatch(action);
-    },
-    handleDeleteItem(id) {
-      const action = deleteItemAction(id);
-      dispatch(action);
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  toggleItemAction: (id, completed) => dispatch(toggleItemAction(id, completed)),
+  deleteItemAction: id => dispatch(deleteItemAction(id))
+});
 
 export default connect(
   mapStateToProps,

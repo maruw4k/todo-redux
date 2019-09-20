@@ -45,26 +45,26 @@ const AddBtn = styled.button`
 const TodoAdd = props => {
   const {
     inputValue,
-    inputValueChange,
     list,
     infoText,
-    handleAddItem,
-    infoTextChange
+    getInputValueChangeAction,
+    addItemAction,
+    getInfoTextAction
   } = props;
 
   const handleAddToDo = () => {
     if (list.length >= 10) {
       const infoText = "Maksymalna ilość zadań to 10";
-      infoTextChange(infoText);
+      getInfoTextAction(infoText);
     } else if (inputValue === undefined || inputValue === "") {
       const infoText = "Proszę wprowadzić zadanie";
-      infoTextChange(infoText);
+      getInfoTextAction(infoText);
     } else if (inputValue.length < 3) {
       const infoText = "Wpisany tekst jest zbyt krótki";
-      infoTextChange(infoText);
+      getInfoTextAction(infoText);
     } else {
-      handleAddItem(inputValue);
-      infoTextChange(false);
+      addItemAction(inputValue);
+      getInfoTextAction(false);
     }
   };
 
@@ -74,7 +74,7 @@ const TodoAdd = props => {
         placeholder="Wpisz zadanie"
         type="text"
         value={inputValue || ""}
-        onChange={inputValueChange}
+        onChange={getInputValueChangeAction}
       />
 
       <AddBtn onClick={handleAddToDo}>Dodaj zadanie</AddBtn>
@@ -93,22 +93,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    inputValueChange(e) {
-      const action = getInputValueChangeAction(e.target.value);
-      dispatch(action);
-    },
-    handleAddItem() {
-      const action = addItemAction();
-      dispatch(action);
-    },
-    infoTextChange(infoText) {
-      const action = getInfoTextAction(infoText);
-      dispatch(action);
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getInputValueChangeAction: e => dispatch(getInputValueChangeAction(e.target.value)),
+  addItemAction: id => dispatch(addItemAction(id)),
+  getInfoTextAction: infoText => dispatch(getInfoTextAction(infoText))
+});
 
 export default connect(
   mapStateToProps,

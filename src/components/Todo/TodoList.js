@@ -76,11 +76,11 @@ const Title = styled.h1`
 `;
 
 const TodoList = props => {
-  const { getInitItems, list } = props;
+  const { getInitItemsAction, list } = props;
 
   useEffect(() => {
     console.log("useEffect()");
-    getInitItems();
+    getInitItemsAction();
   }, []);
 
   return (
@@ -106,14 +106,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getInitItems() {
-      const action = getInitItemsAction();
-      dispatch(action);
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getInitItemsAction: () => dispatch(getInitItemsAction())
+});
 
 export default connect(
   mapStateToProps,
