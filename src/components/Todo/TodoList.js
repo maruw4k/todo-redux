@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getInitItemsAction } from "../../store/actions/createActions";
 import TodoItem from "./TodoItem";
 import TodoAdd from "./TodoAdd";
+import Loader from "../common/Loader";
 import styled from "styled-components";
 import { theme } from "../../assets/styles/theme";
 
@@ -76,16 +77,17 @@ const Title = styled.h1`
 `;
 
 const TodoList = props => {
-  const { getInitItemsAction, list } = props;
+  const { getInitItemsAction, list, loaded } = props;
 
   useEffect(() => {
-    console.log("useEffect()");
     getInitItemsAction();
   }, []);
 
   return (
     <>
       <Wrapper>
+        {!loaded && <Loader />}
+
         <Title>Lista zadań</Title>
 
         <List>
@@ -100,7 +102,8 @@ const TodoList = props => {
 
 const mapStateToProps = state => {
   return {
-    list: state.list
+    list: state.list,
+    loaded: state.loaded
   };
 };
 
