@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getInitItemsAction } from "../../store/createActions";
+import { getInitItemsAction } from "../../store/actions/createActions";
 import TodoItem from "./TodoItem";
 import TodoAdd from "./TodoAdd";
 import styled from "styled-components";

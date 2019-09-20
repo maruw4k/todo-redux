@@ -5,7 +5,7 @@ import {
   INPUT_VALUE_CHANGE,
   TOGGLE_ITEM,
   INFO_TEXT_CHANGE
-} from "./actionTypes";
+} from "../actions/actionTypes";
 
 const defaultState = {
   inputValue: "",
@@ -17,23 +17,16 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case GET_INIT_DATA: {
-      return {
-        loaded: true,
-        list: action.value,
-        infoText: ""
-      };
+      return { ...state, loaded: true, list: action.value };
     }
     case INPUT_VALUE_CHANGE: {
-      const newState = JSON.parse(JSON.stringify(state));
-      newState.inputValue = action.value;
-      return newState;
+      return { ...state, inputValue: action.value };
     }
     case ADD_ITEM: {
       const newState = JSON.parse(JSON.stringify(state));
 
       //@todo temporary, prevent duplicate id, because fake api server doesn't save new todos
       action.value.id = state.list.length + 1;
-
       newState.list = [...state.list, action.value];
       newState.inputValue = "";
       return newState;

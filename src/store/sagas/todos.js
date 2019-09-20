@@ -1,29 +1,23 @@
 import {
-  GET_INIT_ITEMS,
   ADD_ITEM,
-  ADD_ITEM_START,
   TOGGLE_ITEM,
-  TOGGLE_ITEM_START,
-  DELETE_ITEM_START,
-  DELETE_ITEM
-} from "./actionTypes";
-import API from "../utils/API.js";
-import { getInitDataAction } from "./createActions";
-import { select, takeEvery, put } from "@redux-saga/core/effects";
+  DELETE_ITEM, GET_INIT_DATA
+} from "../actions/actionTypes";
+import API from "../../utils/API";
+import { select, put } from "@redux-saga/core/effects";
 
 const NUMBER_OF_TODOS_ON_SERVER = 4;
 
-function* getInitItemsData() {
+export function* getInitItemsData() {
   try {
-    const res = yield API.fetchTodos();
-    const action = getInitDataAction(res.data);
-    yield put(action);
+    const response = yield API.fetchTodos();
+    yield put({ type: GET_INIT_DATA, value: response.data });
   } catch (error) {
     console.log("error: ", error);
   }
 }
 
-function* addItemsData() {
+export  function* addItemsData() {
   try {
     const getToken = state => state;
     const token = yield select(getToken);
@@ -35,7 +29,7 @@ function* addItemsData() {
   }
 }
 
-function* toggleItemsData(action) {
+export function* toggleItemsData(action) {
   try {
     //@todo ugly, because is used faked API (only 4 constant post on server) and locally changes aren't persisted
     if (action.id <= NUMBER_OF_TODOS_ON_SERVER) {
@@ -49,7 +43,7 @@ function* toggleItemsData(action) {
   }
 }
 
-function* deleteItemData(action) {
+export function* deleteItemData(action) {
   try {
     if (action.id <= NUMBER_OF_TODOS_ON_SERVER) {
       yield API.deleteTodo(action.id);
@@ -59,12 +53,3 @@ function* deleteItemData(action) {
     console.log("error: ", error);
   }
 }
-
-function* mySaga() {
-  yield takeEvery(GET_INIT_ITEMS, getInitItemsData);
-  yield takeEvery(ADD_ITEM_START, addItemsData);
-  yield takeEvery(TOGGLE_ITEM_START, toggleItemsData);
-  yield takeEvery(DELETE_ITEM_START, deleteItemData);
-}
-
-export default mySaga;

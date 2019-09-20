@@ -1,12 +1,11 @@
 import {
-  GET_INIT_ITEMS,
-  GET_INIT_DATA,
+  GET_INIT_DATA_START,
   INPUT_VALUE_CHANGE,
   ADD_ITEM_START,
   TOGGLE_ITEM_START,
   DELETE_ITEM_START,
   INFO_TEXT_CHANGE
-} from "../store/actionTypes";
+} from "./actionTypes";
 
 const getInputValueChangeAction = value => ({
   type: INPUT_VALUE_CHANGE,
@@ -14,15 +13,10 @@ const getInputValueChangeAction = value => ({
 });
 
 const getInitItemsAction = () => ({
-  type: GET_INIT_ITEMS
+  type: GET_INIT_DATA_START
 });
 
-const getInitDataAction = value => ({
-  type: GET_INIT_DATA,
-  value
-});
-
-const addItemAction = value => ({
+const addItemAction = () => ({
   type: ADD_ITEM_START
 });
 
@@ -43,7 +37,6 @@ const getInfoTextAction = value => ({
 });
 export {
   getInitItemsAction,
-  getInitDataAction,
   getInputValueChangeAction,
   addItemAction,
   toggleItemAction,

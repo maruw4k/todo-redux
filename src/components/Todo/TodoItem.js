@@ -1,7 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { toggleItemAction, deleteItemAction } from "../../store/createActions";
+import {
+  toggleItemAction,
+  deleteItemAction
+} from "../../store/actions/createActions";
 import { theme } from "../../assets/styles/theme";
 
 const ListItem = styled.li`
@@ -50,8 +53,8 @@ const DeleteBtn = styled(ActionBtn)`
   color: ${theme.color.red};
 `;
 
-const ToggleBtn = styled(ActionBtn)`  
-    color: ${props =>
+const ToggleBtn = styled(ActionBtn)`
+  color: ${props =>
     props.completed ? `${theme.color.black}` : `${theme.color.green}`};
 `;
 
