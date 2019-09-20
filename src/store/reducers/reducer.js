@@ -26,7 +26,7 @@ export default (state = defaultState, action) => {
       const newState = JSON.parse(JSON.stringify(state));
 
       //@todo temporary, prevent duplicate id, because fake api server doesn't save new todos
-      action.value.id = state.list.length + 1;
+      action.value.id = new Date().valueOf();
       newState.list = [...state.list, action.value];
       newState.inputValue = "";
       return newState;
