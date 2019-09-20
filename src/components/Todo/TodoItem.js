@@ -88,18 +88,12 @@ const TodoItem = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    list: state.list
-  };
-};
-
 const mapDispatchToProps = dispatch => ({
   toggleItemAction: (id, completed) => dispatch(toggleItemAction(id, completed)),
   deleteItemAction: id => dispatch(deleteItemAction(id))
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(TodoItem);
