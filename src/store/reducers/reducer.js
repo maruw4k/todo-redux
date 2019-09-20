@@ -29,14 +29,15 @@ export default (state = defaultState, action) => {
       return { ...state, loaded: false };
     }
     case ADD_ITEM: {
-      const newState = JSON.parse(JSON.stringify(state));
-
       //@todo temporary, prevent duplicate id, because fake api server doesn't save new todos
       action.value.id = new Date().valueOf();
-      newState.list = [...state.list, action.value];
-      newState.inputValue = "";
-      newState.loaded = true;
-      return newState;
+
+      return {
+        ...state,
+        list: [...state.list, action.value],
+        inputValue: "",
+        loaded: true
+      };
     }
     case TOGGLE_ITEM_START: {
       return { ...state, loaded: false };
