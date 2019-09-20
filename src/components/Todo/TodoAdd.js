@@ -88,7 +88,6 @@ const mapStateToProps = state => {
   return {
     inputValue: state.inputValue,
     list: state.list,
-    loaded: state.loaded,
     infoText: state.infoText
   };
 };

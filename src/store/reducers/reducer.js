@@ -1,8 +1,11 @@
 import {
+  ADD_ITEM_START,
   ADD_ITEM,
+  DELETE_ITEM_START,
   DELETE_ITEM,
   GET_INIT_DATA,
   INPUT_VALUE_CHANGE,
+  TOGGLE_ITEM_START,
   TOGGLE_ITEM,
   INFO_TEXT_CHANGE
 } from "../actions/actionTypes";
@@ -22,27 +25,40 @@ export default (state = defaultState, action) => {
     case INPUT_VALUE_CHANGE: {
       return { ...state, inputValue: action.value };
     }
+    case ADD_ITEM_START: {
+      return { ...state, loaded: false };
+    }
     case ADD_ITEM: {
-      const newState = JSON.parse(JSON.stringify(state));
-
       //@todo temporary, prevent duplicate id, because fake api server doesn't save new todos
       action.value.id = new Date().valueOf();
-      newState.list = [...state.list, action.value];
-      newState.inputValue = "";
-      return newState;
+
+      return {
+        ...state,
+        list: [...state.list, action.value],
+        inputValue: "",
+        loaded: true
+      };
+    }
+    case TOGGLE_ITEM_START: {
+      return { ...state, loaded: false };
     }
     case TOGGLE_ITEM: {
       return {
         ...state,
         list: state.list.map(todo =>
           todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
-        )
+        ),
+        loaded: true
       };
+    }
+    case DELETE_ITEM_START: {
+      return { ...state, loaded: false };
     }
     case DELETE_ITEM: {
       return {
         ...state,
-        list: state.list.filter(todo => todo.id !== action.id)
+        list: state.list.filter(todo => todo.id !== action.id),
+        loaded: true
       };
     }
     case INFO_TEXT_CHANGE: {
