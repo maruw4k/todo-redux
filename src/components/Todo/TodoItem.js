@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -89,7 +90,8 @@ const TodoItem = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  toggleItemAction: (id, completed) => dispatch(toggleItemAction(id, completed)),
+  toggleItemAction: (id, completed) =>
+    dispatch(toggleItemAction(id, completed)),
   deleteItemAction: id => dispatch(deleteItemAction(id))
 });
 
@@ -97,3 +99,9 @@ export default connect(
   null,
   mapDispatchToProps
 )(TodoItem);
+
+TodoItem.propTypes = {
+  deleteItemAction: PropTypes.func,
+  item: PropTypes.object.isRequired,
+  toggleItemAction: PropTypes.func
+};

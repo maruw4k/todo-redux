@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import {
@@ -93,7 +94,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getInputValueChangeAction: e => dispatch(getInputValueChangeAction(e.target.value)),
+  getInputValueChangeAction: e =>
+    dispatch(getInputValueChangeAction(e.target.value)),
   addItemAction: id => dispatch(addItemAction(id)),
   getInfoTextAction: infoText => dispatch(getInfoTextAction(infoText))
 });
@@ -102,3 +104,12 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TodoAdd);
+
+TodoAdd.propTypes = {
+  addItemAction: PropTypes.func,
+  getInfoTextAction: PropTypes.func,
+  getInputValueChangeAction: PropTypes.func,
+  infoText: PropTypes.string,
+  inputValue: PropTypes.string,
+  list: PropTypes.array
+};

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getInitItemsAction } from "../../store/actions/createActions";
@@ -115,3 +116,9 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TodoList);
+
+TodoList.propTypes = {
+  getInitItemsAction: PropTypes.func,
+  list: PropTypes.array,
+  loaded: PropTypes.bool
+};
