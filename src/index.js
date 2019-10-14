@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import TodoList from "./components/Todo/TodoList";
+import TodoList from "./containers/Todos/TodoList";
 import store from "./store";
 import GlobalStyle from "./assets/styles/GlobalStyle";
 
