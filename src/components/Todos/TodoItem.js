@@ -5,6 +5,7 @@ import {
   toggleItemAction,
   deleteItemAction
 } from "../../store/actions/createActions";
+import { Link } from "react-router-dom";
 import ListItem from "../UI/ListItem";
 import { DeleteBtn, ToggleBtn } from "../UI/ActionBtn";
 
@@ -14,9 +15,7 @@ const TodoItem = props => {
   return (
     <>
       <ListItem completed={item.completed} key={item.id}>
-        <span onClick={() => toggleItemAction(item.id, item.completed)}>
-          {item.title}
-        </span>
+        <Link to={`/details/${item.id}`}>{item.title}</Link>
 
         <div>
           <ToggleBtn
