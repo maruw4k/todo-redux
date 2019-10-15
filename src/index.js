@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import GlobalStyle from "./assets/styles/GlobalStyle";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import TodoList from "./containers/Todos/TodoList";
 import TodoDetails from "./containers/Todos/TodoDetails";
 import NotFound from "./containers/NotFound";

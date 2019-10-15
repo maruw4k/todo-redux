@@ -1,35 +1,69 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {
+  getSelectTask,
+  isTasksEmpty
+} from "../../store/selectors/todoSelectors";
+import { getInitItemsAction } from "../../store/actions/createActions";
+
 import Wrapper from "../../components/UI/Wrapper";
 import Title from "../../components/UI/Title";
 import List from "../../components/UI/List";
 import ListItem from "../../components/UI/ListItem";
 import MainBtn from "../../components/UI/MainBtn";
-import styled from "styled-components";
+import Loader from "../../components/UI/Loader";
 
 const StyledMainBtn = styled(MainBtn)`
   margin-left: 2rem;
 `;
 
-const TodoDetails = () => {
-  const { id } = useParams();
+const TodoDetails = props => {
+  const { getInitItemsAction, task, isTasksEmpty } = props;
+
+  useEffect(() => {
+    if (isTasksEmpty) {
+      getInitItemsAction();
+    }
+  }, []);
+
   return (
     <>
       <Wrapper>
         <Title>Szczegóły zadania</Title>
 
-        <List>
-          <ListItem>ID: {id}</ListItem>
-          <ListItem>Treść: </ListItem>
-          <ListItem>Ukończone: </ListItem>
-          <ListItem>Użytkownik: </ListItem>
-        </List>
-        <StyledMainBtn>
-          <Link to={"/"}>Wróć do listy</Link>
-        </StyledMainBtn>
+        {task ? (
+          <List>
+            <ListItem>Treść: {task.title} </ListItem>
+            <ListItem>ID: {task.id}</ListItem>
+            <ListItem>Ukończone: {task.completed ? "Tak" : "Nie"}</ListItem>
+            <ListItem>Id użytkownika: {task.userId} </ListItem>
+          </List>
+        ) : (
+          <Loader />
+        )}
+        <Link to={"/"}>
+          <StyledMainBtn>Wróć do listy</StyledMainBtn>
+        </Link>
       </Wrapper>
     </>
   );
 };
 
-export default TodoDetails;
+const mapStateToProps = (state, ownProps) =>
+  createStructuredSelector({
+    task: getSelectTask(ownProps.match.params.id),
+    isTasksEmpty: isTasksEmpty()
+  });
+
+const mapDispatchToProps = dispatch => ({
+  getInitItemsAction: () => dispatch(getInitItemsAction())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoDetails);
