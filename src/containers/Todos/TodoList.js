@@ -13,7 +13,7 @@ const TodoList = props => {
   const { getInitItemsAction, list, loaded } = props;
 
   useEffect(() => {
-    getInitItemsAction();
+    if (list.length < 1) getInitItemsAction();
   }, []);
 
   return (
