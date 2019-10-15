@@ -32,7 +32,7 @@ const TodoAdd = props => {
       getInfoTextAction(infoText);
     } else {
       addItemAction(inputValue);
-      getInfoTextAction(false);
+      getInfoTextAction("");
     }
   };
 
